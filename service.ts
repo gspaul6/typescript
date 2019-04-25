@@ -1,13 +1,16 @@
 import { promises } from "fs";
 import jsdom from 'jsdom';
-import request from 'request-promise-native';
+import request, { RequestPromise, RequestPromiseAPI } from 'request-promise-native';
+import { Http2SecureServer, Http2ServerRequest, ServerHttp2Stream } from "http2";
+import { HttpArchiveRequest } from "request";
+import { Resolver } from "dns";
 //const request = require('request-promise-native');
 
 
 function rechercherColleguesParNom(nomRecherche:string, callbackOk:any, callbackNotOk:any) {
 
 
-    request('https://paul-collegues-api.herokuapp.com/collegues?nom=' + nomRecherche, { json: true }, (err: any, res: any, body: any) => {
+    request('https://paul-collegues-api.herokuapp.com/collegues?nom=' + nomRecherche, { json: true }, (err: Error, res: any, body: any) => {
 
         
         if (err) {
@@ -52,7 +55,7 @@ function rechercherColleguesParNom(nomRecherche:string, callbackOk:any, callback
 function rechercherColleguesParNom2(nomRecherche:string, callback:any, callbackErr:any) {
     request(`https://paul-collegues-api.herokuapp.com/collegues?nom=${nomRecherche}`, {
         json: true
-    }, (err:any, res:any, body:any) => {
+    }, (err:Error, res:any, body:any) => {
         if (err) { callbackErr('error is there', err); }
         let tabMatricules:any = body;
         function trouverCollegues(tabMats:any, tabResultats:any) {
@@ -86,7 +89,7 @@ function rechercherColleguesParNom3(nomRecherche:string):Promise<Object>{
                 .then(tabPromise.push(matricule))
             });
 
-        Promise.all(MatriculesPromise$:Promise<Object>).then((collegues:Object) => resolve(collegues)).catch((err:Error) => reject("there is an error with the recuperation"));
+        Promise.all((MatriculesPromise$:Promise<>)).then((collegues:Object) => resolve(collegues)).catch((err:Error) => reject("there is an error with the recuperation"));
     }).catch(err => reject("error in code"));
 });
 }
@@ -108,7 +111,7 @@ function rechercherColleguesParMatricule2(matriculeRecherche:any) :any{
 
 function rechercherColleguesParMatricule(matriculeRecherche:string, callback:any) {
 
-    request(`https://paul-collegues-api.herokuapp.com/collegues/${matriculeRecherche}`, { json: true }, (err, res, body) => {
+    request(`https://paul-collegues-api.herokuapp.com/collegues/${matriculeRecherche}`, { json: true }, (err:Error, res:any, body:any) => {
 
 
         let tableauColleguesTrouvesParMatricule = body;

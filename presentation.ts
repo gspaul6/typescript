@@ -47,7 +47,7 @@ function start() {
                 private prenoms:string;
                 private dateDeNaissance:Date;
                 private photoUrl:string;
-                 private email:string;
+                private email:string;
                 constructor(nom:string,prenoms:string,dateDeNaissance:Date,photoUrl:string,email:string){
                 this.nom=nom;
                 this.prenoms=prenoms;

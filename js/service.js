@@ -70,7 +70,7 @@ function rechercherColleguesParNom3(nomRecherche) {
                 rechercherColleguesParMatricule2(matricule)
                     .then(tabPromise.push(matricule));
             });
-            Promise.all(MatriculesPromise$, Promise().then(function (collegues) { return resolve(collegues); }).catch(function (err) { return reject("there is an error with the recuperation"); }));
+            Promise.all(function (MatriculesPromise$) { return ; }).then(function (collegues) { return resolve(collegues); }).catch(function (err) { return reject("there is an error with the recuperation"); });
         }).catch(function (err) { return reject("error in code"); });
     });
 }
