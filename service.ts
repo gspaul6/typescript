@@ -81,16 +81,16 @@ function rechercherColleguesParNom2(nomRecherche:string, callback:any, callbackE
 function rechercherColleguesParNom3(nomRecherche:string):Promise<Object>{
     return new Promise((resolve, reject) => {
         let tabPromise:any[] = [];
-        const MatriculesPromise$ = request('https://paul-collegues-api.herokuapp.com/collegues?nom=' + nomRecherche, { json: true });
+        const MatriculesPromise$:any = request('https://paul-collegues-api.herokuapp.com/collegues?nom=' + nomRecherche, { json: true });
         //tabPromise = [promise0,promise1]
         MatriculesPromise$
-            .then(matricules => {
+            .then((matricules:any) => {
                 matricules.forEach((matricule:string) => { rechercherColleguesParMatricule2(matricule) 
                 .then(tabPromise.push(matricule))
             });
 
-        Promise.all((MatriculesPromise$:Promise<>)).then((collegues:Object) => resolve(collegues)).catch((err:Error) => reject("there is an error with the recuperation"));
-    }).catch(err => reject("error in code"));
+        Promise.all((MatriculesPromise$)).then((collegues:Object) => resolve(collegues)).catch((err:Error) => reject("there is an error with the recuperation"));
+    }).catch((err:Error) => reject("error in code"));
 });
 }
 
